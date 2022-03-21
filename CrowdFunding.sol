@@ -39,5 +39,8 @@ contract CrowdFunding{
         raisedAmount+=msg.value;
     }
     
+    function getContractBalance() public view returns(uint){
+        return address(this).balance;
+    }
     
     
