@@ -52,5 +52,9 @@ contract CrowdFunding{
         
     }
     
+    modifier onlyManager(){
+        require(msg.sender==manager,"Only manager can call this function");
+        _;
+    }
     
     
