@@ -21,3 +21,13 @@ contract CrowdFunding{
     mapping(uint=>Request) public requests;
     uint public numRequests;
 
+    constructor(uint _target,uint _deadline){
+        target=_target;
+        deadline=block.timestamp+_deadline; //10sec + 3600sec (60*60)
+        minimumContribution=100 wei;
+        manager=msg.sender;
+    }
+    
+    
+    
+    
