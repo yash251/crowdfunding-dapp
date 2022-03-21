@@ -1,8 +1,10 @@
 //SPDX-License-Identifier: UNLICENSED
+
 pragma solidity >=0.5.0 < 0.9.0;
 
 contract CrowdFunding{
-    mapping(address=>uint) public contributors; 
+
+    mapping(address=>uint) public contributors; //contributors[msg.sender]=100
     address public manager; 
     uint public minimumContribution;
     uint public deadline;
@@ -38,11 +40,11 @@ contract CrowdFunding{
         contributors[msg.sender]+=msg.value;
         raisedAmount+=msg.value;
     }
-    
+
     function getContractBalance() public view returns(uint){
         return address(this).balance;
     }
-    
+
     function refund() public{
         require(block.timestamp>deadline && raisedAmount<target,"You are not eligible for refund");
         require(contributors[msg.sender]>0);
@@ -51,12 +53,12 @@ contract CrowdFunding{
         contributors[msg.sender]=0;
         
     }
-    
+
     modifier onlyManager(){
         require(msg.sender==manager,"Only manager can call this function");
         _;
     }
-    
+
     function createRequests(string memory _description,address payable _recipient,uint _value) public onlyManager{
         Request storage newRequest = requests[numRequests];
         numRequests++;
@@ -66,7 +68,7 @@ contract CrowdFunding{
         newRequest.completed=false;
         newRequest.noOfVoters=0;
     }
-    
+
     function voteRequest(uint _requestNo) public{
         require(contributors[msg.sender]>0,"You must be contributor");
         Request storage thisRequest=requests[_requestNo];
