@@ -9,3 +9,15 @@ contract CrowdFunding{
     uint public target;
     uint public raisedAmount;
     uint public noOfContributors;
+    
+    struct Request{
+        string description;
+        address payable recipient;
+        uint value;
+        bool completed;
+        uint noOfVoters;
+        mapping(address=>bool) voters;
+    }
+    mapping(uint=>Request) public requests;
+    uint public numRequests;
+
